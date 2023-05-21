@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 public enum CombatStatus
 {
+    //Esperando que a que un luchador tome una acción
     WAITING_FOR_FIGHTER,
+
+    //Luchador tomando una acción
     FIGHTER_ACTION,
+
+    //Verificando mensajes de acción
+
     CHECK_ACTION_MESSAGES,
     CHECK_FOR_VICTORY,
     NEXT_TURN,
@@ -14,16 +20,21 @@ public enum CombatStatus
 
 public class CombatManager : MonoBehaviour
 {
+    
     private Fighter[] playerTeam;
     private Fighter[] enemyTeam;
 
+    //Indice del luchador actual
     private Fighter[] fighters;
     private int fighterIndex;
 
+    //Bandera para saber si el combate sigue activo
     private bool isCombatActive;
 
+    //Estado del combate actual
     private CombatStatus combatStatus;
 
+    //Habilidad actual del luchador
     private Skill currentFighterSkill;
 
     private List<Fighter> returnBuffer;
@@ -72,6 +83,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    //Metodo que divide a los luchadores en equipos separados según su propiedad
     private void MakeTeams()
     {
         List<Fighter> playersBuffer = new List<Fighter>();
@@ -95,10 +107,12 @@ public class CombatManager : MonoBehaviour
         this.enemyTeam = enemiesBuffer.ToArray();
     }
 
+    //Corazón del combate. While para continuar ejecutándose mientras el combate esta activo
     IEnumerator CombatLoop()
     {
         while (this.isCombatActive)
         {
+            //Manejar los diferentes estados del combate
             switch (this.combatStatus)
             {
                 case CombatStatus.WAITING_FOR_FIGHTER:
@@ -272,6 +286,7 @@ public class CombatManager : MonoBehaviour
         return this.FilterJustAlive(team);
     }
 
+    // Se utiliza para notificar al combatManager que un luchador ha seleccionado una habilidad para ser ejecutada
     public void OnFighterSkill(Skill skill)
     {
         this.currentFighterSkill = skill;

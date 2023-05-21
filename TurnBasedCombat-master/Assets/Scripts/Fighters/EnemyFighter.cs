@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//La clase EnemyFighter hereda de la clase Fighter
 public class EnemyFighter : Fighter
 {
     void Awake()
