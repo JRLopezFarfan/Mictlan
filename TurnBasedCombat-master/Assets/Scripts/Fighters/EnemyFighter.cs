@@ -6,7 +6,7 @@ public class EnemyFighter : Fighter
 {
     void Awake()
     {
-        this.stats = new Stats(20, 50, 40, 30, 60, 15);
+        this.stats = new Stats(70, 70, 60, 50, 80, 35);
     }
 
     public override void InitTurn()
